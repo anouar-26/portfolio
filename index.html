@@ -19,6 +19,21 @@
       --text-muted: #94a3b8;
       --border-color: rgba(255, 255, 255, 0.08);
       --border-glow: rgba(0, 242, 254, 0.25);
+      --nav-bg: rgba(7, 9, 14, 0.75);
+    }
+
+    /* Theme Light (Clair) Variables */
+    body.light-theme {
+      --bg-dark: #f1f5f9;
+      --card-bg: rgba(255, 255, 255, 0.85);
+      --card-hover: rgba(241, 245, 249, 1);
+      --primary: #0284c7;
+      --secondary: #0369a1;
+      --text-main: #0f172a;
+      --text-muted: #475569;
+      --border-color: rgba(0, 0, 0, 0.08);
+      --border-glow: rgba(2, 132, 199, 0.3);
+      --nav-bg: rgba(255, 255, 255, 0.85);
     }
 
     * {
@@ -34,9 +49,9 @@
       color: var(--text-main);
       line-height: 1.6;
       overflow-x: hidden;
+      transition: background-color 0.3s ease, color 0.3s ease;
     }
 
-    /* Cyber Network Grid Background */
     body::before {
       content: '';
       position: fixed;
@@ -52,7 +67,6 @@
       pointer-events: none;
     }
 
-    /* Ambient Lighting */
     .glow-bg {
       position: fixed;
       width: 500px;
@@ -64,16 +78,17 @@
       pointer-events: none;
     }
 
-    /* Navbar Header */
+    /* Navbar */
     header {
       position: fixed;
       top: 0;
       width: 100%;
-      background: rgba(7, 9, 14, 0.75);
+      background: var(--nav-bg);
       backdrop-filter: blur(16px);
       -webkit-backdrop-filter: blur(16px);
       border-bottom: 1px solid var(--border-color);
       z-index: 1000;
+      transition: background 0.3s ease;
     }
 
     nav {
@@ -88,7 +103,7 @@
     .logo {
       font-size: 1.3rem;
       font-weight: 800;
-      color: #fff;
+      color: var(--text-main);
       letter-spacing: 1.5px;
       text-decoration: none;
     }
@@ -101,6 +116,7 @@
       display: flex;
       gap: 1.8rem;
       list-style: none;
+      align-items: center;
     }
 
     .nav-links a {
@@ -113,7 +129,28 @@
 
     .nav-links a:hover {
       color: var(--primary);
-      text-shadow: 0 0 10px rgba(0, 242, 254, 0.5);
+    }
+
+    /* Theme Toggle Button */
+    .theme-toggle {
+      background: rgba(255, 255, 255, 0.05);
+      border: 1px solid var(--border-color);
+      color: var(--text-main);
+      width: 38px;
+      height: 38px;
+      border-radius: 50%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      cursor: pointer;
+      font-size: 1.1rem;
+      transition: all 0.3s ease;
+    }
+
+    .theme-toggle:hover {
+      border-color: var(--primary);
+      color: var(--primary);
+      transform: rotate(15deg);
     }
 
     .menu-toggle {
@@ -123,7 +160,7 @@
       cursor: pointer;
     }
 
-    /* Layout Containers */
+    /* Layout */
     section {
       max-width: 1100px;
       margin: 0 auto;
@@ -150,9 +187,9 @@
       border-radius: 2px;
     }
 
-    /* Hero Section */
+    /* Hero Section with Profile Image */
     .hero {
-      min-height: 80vh;
+      min-height: 85vh;
       display: flex;
       align-items: center;
       justify-content: center;
@@ -162,6 +199,24 @@
     .hero-content {
       max-width: 800px;
       text-align: center;
+    }
+
+    .profile-img-container {
+      margin: 0 auto 1.5rem auto;
+      width: 140px;
+      height: 140px;
+      border-radius: 50%;
+      padding: 4px;
+      background: linear-gradient(135deg, var(--primary), var(--secondary));
+      box-shadow: 0 0 25px rgba(0, 242, 254, 0.3);
+    }
+
+    .profile-img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      border-radius: 50%;
+      background-color: var(--bg-dark);
     }
 
     .hero-badge {
@@ -175,7 +230,7 @@
       border-radius: 30px;
       font-size: 0.85rem;
       font-weight: 600;
-      margin-bottom: 1.5rem;
+      margin-bottom: 1.2rem;
     }
 
     .hero-badge i {
@@ -183,14 +238,11 @@
     }
 
     .hero-content h1 {
-      font-size: 3.8rem;
+      font-size: 3.5rem;
       font-weight: 800;
       line-height: 1.15;
       margin-bottom: 0.8rem;
       letter-spacing: -1px;
-      background: linear-gradient(135deg, #ffffff 30%, var(--text-muted) 100%);
-      -webkit-background-clip: text;
-      -webkit-text-fill-color: transparent;
     }
 
     .hero-content .subtitle {
@@ -263,6 +315,10 @@
       box-shadow: 0 4px 20px rgba(0, 242, 254, 0.25);
     }
 
+    body.light-theme .btn-primary {
+      color: #fff;
+    }
+
     .btn-primary:hover {
       transform: translateY(-3px);
       box-shadow: 0 8px 25px rgba(0, 242, 254, 0.4);
@@ -280,7 +336,7 @@
       color: var(--primary);
     }
 
-    /* Badges */
+    /* Badges & Cards */
     .skills-badges {
       display: flex;
       flex-wrap: wrap;
@@ -304,13 +360,6 @@
       background: rgba(0, 242, 254, 0.05);
     }
 
-    /* Cards */
-    .grid-2 {
-      display: grid;
-      grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
-      gap: 1.5rem;
-    }
-
     .grid-3 {
       display: grid;
       grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
@@ -330,7 +379,7 @@
       background: var(--card-hover);
       border-color: var(--border-glow);
       transform: translateY(-5px);
-      box-shadow: 0 10px 30px rgba(0, 0, 0, 0.3);
+      box-shadow: 0 10px 30px rgba(0, 0, 0, 0.15);
     }
 
     .card-icon {
@@ -428,7 +477,7 @@
 
     @media (max-width: 768px) {
       .hero-content h1 {
-        font-size: 2.8rem;
+        font-size: 2.6rem;
       }
       .timeline-item {
         grid-template-columns: 1fr;
@@ -442,7 +491,7 @@
         top: 100%;
         left: 0;
         width: 100%;
-        background: rgba(7, 9, 14, 0.95);
+        background: var(--nav-bg);
         flex-direction: column;
         padding: 1.5rem;
         gap: 1.2rem;
@@ -465,9 +514,7 @@
   <header>
     <nav>
       <a href="#" class="logo">ANOIR<span>.Z</span></a>
-      <div class="menu-toggle" id="menu-toggle">
-        <i class="fa-solid fa-bars"></i>
-      </div>
+      
       <ul class="nav-links" id="nav-links">
         <li><a href="#about">À propos</a></li>
         <li><a href="#skills">Compétences</a></li>
@@ -476,12 +523,29 @@
         <li><a href="#projects">Projets</a></li>
         <li><a href="#contact">Contact</a></li>
       </ul>
+
+      <div style="display: flex; align-items: center; gap: 1rem;">
+        <!-- Button Light / Dark -->
+        <button class="theme-toggle" id="theme-toggle" title="Changer le thème">
+          <i class="fa-solid fa-moon" id="theme-icon"></i>
+        </button>
+
+        <div class="menu-toggle" id="menu-toggle">
+          <i class="fa-solid fa-bars"></i>
+        </div>
+      </div>
     </nav>
   </header>
 
   <!-- Hero Section -->
   <section class="hero">
     <div class="hero-content">
+      
+      <!-- Profile Picture -->
+      <div class="profile-img-container">
+        <img src="profile.jpg" alt="Anoir Zouit" class="profile-img">
+      </div>
+
       <div class="hero-badge">
         <i class="fa-solid fa-circle"></i> Disponible pour opportunités IT & Support
       </div>
@@ -650,6 +714,7 @@
   </footer>
 
   <script>
+    // Menu Mobile
     const menuToggle = document.getElementById('menu-toggle');
     const navLinks = document.getElementById('nav-links');
 
@@ -661,6 +726,31 @@
       link.addEventListener('click', () => {
         navLinks.classList.remove('active');
       });
+    });
+
+    // Dark / Light Mode Script
+    const themeToggleBtn = document.getElementById('theme-toggle');
+    const themeIcon = document.getElementById('theme-icon');
+
+    // Vérifier la préférence sauvegardée
+    const currentTheme = localStorage.getItem('theme');
+    if (currentTheme === 'light') {
+      document.body.classList.add('light-theme');
+      themeIcon.classList.replace('fa-moon', 'fa-sun');
+    }
+
+    themeToggleBtn.addEventListener('click', () => {
+      document.body.classList.toggle('light-theme');
+      
+      let theme = 'dark';
+      if (document.body.classList.contains('light-theme')) {
+        theme = 'light';
+        themeIcon.classList.replace('fa-moon', 'fa-sun');
+      } else {
+        themeIcon.classList.replace('fa-sun', 'fa-moon');
+      }
+      
+      localStorage.setItem('theme', theme);
     });
   </script>
 
