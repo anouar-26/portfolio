@@ -10,21 +10,24 @@
   
   <style>
     :root {
-      --bg-dark: #07090e;
-      --card-bg: rgba(15, 23, 42, 0.65);
-      --card-hover: rgba(30, 41, 59, 0.8);
+      --bg-dark: #060913;
+      --card-bg: rgba(13, 20, 36, 0.65);
+      --card-hover: rgba(23, 35, 60, 0.85);
       --primary: #00f2fe;
       --secondary: #4facfe;
       --text-main: #f8fafc;
       --text-muted: #94a3b8;
       --border-color: rgba(255, 255, 255, 0.08);
-      --border-glow: rgba(0, 242, 254, 0.25);
-      --nav-bg: rgba(7, 9, 14, 0.75);
+      --border-glow: rgba(0, 242, 254, 0.3);
+      --nav-bg: rgba(6, 9, 19, 0.8);
+      /* أيقونات موضحة ومضيئة كثر فـ المود الظلام */
+      --icon-float-color: rgba(0, 242, 254, 0.25);
+      --icon-glow: drop-shadow(0px 0px 8px rgba(0, 242, 254, 0.4));
     }
 
     /* Theme Light (Clair) Variables */
     body.light-theme {
-      --bg-dark: #f1f5f9;
+      --bg-dark: #e0f2fe;
       --card-bg: rgba(255, 255, 255, 0.85);
       --card-hover: rgba(241, 245, 249, 1);
       --primary: #0284c7;
@@ -33,7 +36,9 @@
       --text-muted: #475569;
       --border-color: rgba(0, 0, 0, 0.08);
       --border-glow: rgba(2, 132, 199, 0.3);
-      --nav-bg: rgba(255, 255, 255, 0.85);
+      --nav-bg: rgba(224, 242, 254, 0.85);
+      --icon-float-color: rgba(2, 132, 199, 0.2);
+      --icon-glow: none;
     }
 
     * {
@@ -49,33 +54,72 @@
       color: var(--text-main);
       line-height: 1.6;
       overflow-x: hidden;
-      transition: background-color 0.3s ease, color 0.3s ease;
+      transition: background-color 0.4s ease, color 0.4s ease;
+      position: relative;
     }
 
-    body::before {
-      content: '';
+    /* Water Wave & Ambient Animation Background */
+    .water-bg {
       position: fixed;
       top: 0;
       left: 0;
       width: 100vw;
       height: 100vh;
-      background-image: 
-        linear-gradient(to right, rgba(255, 255, 255, 0.02) 1px, transparent 1px),
-        linear-gradient(to bottom, rgba(255, 255, 255, 0.02) 1px, transparent 1px);
-      background-size: 50px 50px;
       z-index: -2;
+      overflow: hidden;
       pointer-events: none;
     }
 
-    .glow-bg {
+    .water-wave {
+      position: absolute;
+      width: 200%;
+      height: 200%;
+      top: -50%;
+      left: -50%;
+      background: radial-gradient(circle, rgba(0, 242, 254, 0.12) 0%, rgba(79, 172, 254, 0.03) 40%, transparent 70%);
+      animation: waveFloat 15s infinite alternate ease-in-out;
+    }
+
+    @keyframes waveFloat {
+      0% { transform: rotate(0deg) scale(1); }
+      50% { transform: rotate(180deg) scale(1.15); }
+      100% { transform: rotate(360deg) scale(1); }
+    }
+
+    /* Floating IT Domain Icons in Background */
+    .floating-icons {
       position: fixed;
-      width: 500px;
-      height: 500px;
-      background: radial-gradient(circle, rgba(0, 242, 254, 0.12) 0%, rgba(79, 172, 254, 0.05) 50%, transparent 70%);
-      top: -150px;
-      left: -100px;
+      top: 0;
+      left: 0;
+      width: 100vw;
+      height: 100vh;
       z-index: -1;
       pointer-events: none;
+    }
+
+    .floating-icons i {
+      position: absolute;
+      color: var(--icon-float-color);
+      font-size: 2.5rem; /* زدنا كبرنا الحجم شوية باش يبانوا واضحين */
+      filter: var(--icon-glow); /* بريق وتأثير ضوئي فـ المود الليلي */
+      animation: floatAround 18s infinite ease-in-out;
+      transition: color 0.4s ease, filter 0.4s ease;
+    }
+
+    /* Floating Icons Custom Positions & Delays */
+    .floating-icons i:nth-child(1) { top: 15%; left: 8%;  animation-duration: 18s; }
+    .floating-icons i:nth-child(2) { top: 68%; left: 10%; animation-duration: 22s; animation-delay: -3s; }
+    .floating-icons i:nth-child(3) { top: 22%; left: 85%; animation-duration: 19s; animation-delay: -5s; }
+    .floating-icons i:nth-child(4) { top: 72%; left: 82%; animation-duration: 24s; animation-delay: -2s; }
+    .floating-icons i:nth-child(5) { top: 45%; left: 4%;  animation-duration: 16s; animation-delay: -7s; }
+    .floating-icons i:nth-child(6) { top: 82%; left: 45%; animation-duration: 21s; animation-delay: -4s; }
+    .floating-icons i:nth-child(7) { top: 12%; left: 48%; animation-duration: 23s; animation-delay: -8s; }
+
+    @keyframes floatAround {
+      0% { transform: translateY(0px) rotate(0deg) scale(1); }
+      33% { transform: translateY(-25px) translateX(15px) rotate(10deg) scale(1.1); }
+      66% { transform: translateY(15px) translateX(-15px) rotate(-10deg) scale(0.95); }
+      100% { transform: translateY(0px) rotate(0deg) scale(1); }
     }
 
     /* Navbar */
@@ -208,7 +252,12 @@
       border-radius: 50%;
       padding: 4px;
       background: linear-gradient(135deg, var(--primary), var(--secondary));
-      box-shadow: 0 0 25px rgba(0, 242, 254, 0.3);
+      box-shadow: 0 0 30px rgba(0, 242, 254, 0.35);
+      transition: transform 0.3s ease;
+    }
+
+    .profile-img-container:hover {
+      transform: scale(1.05);
     }
 
     .profile-img {
@@ -224,7 +273,7 @@
       align-items: center;
       gap: 0.5rem;
       background: rgba(0, 242, 254, 0.08);
-      border: 1px solid rgba(0, 242, 254, 0.2);
+      border: 1px solid rgba(0, 242, 254, 0.25);
       color: var(--primary);
       padding: 0.4rem 1.1rem;
       border-radius: 30px;
@@ -379,7 +428,7 @@
       background: var(--card-hover);
       border-color: var(--border-glow);
       transform: translateY(-5px);
-      box-shadow: 0 10px 30px rgba(0, 0, 0, 0.15);
+      box-shadow: 0 10px 30px rgba(0, 0, 0, 0.2);
     }
 
     .card-icon {
@@ -508,7 +557,21 @@
 </head>
 <body>
 
-  <div class="glow-bg"></div>
+  <!-- Water Wave Animation Background -->
+  <div class="water-bg">
+    <div class="water-wave"></div>
+  </div>
+
+  <!-- IT Domain Floating Icons Background -->
+  <div class="floating-icons">
+    <i class="fa-solid fa-server" title="Server"></i>
+    <i class="fa-solid fa-network-wired" title="Network"></i>
+    <i class="fa-solid fa-cloud" title="Cloud POS"></i>
+    <i class="fa-solid fa-database" title="Database"></i>
+    <i class="fa-solid fa-wifi" title="Wi-Fi"></i>
+    <i class="fa-solid fa-terminal" title="Terminal"></i>
+    <i class="fa-solid fa-shield-halved" title="Security"></i>
+  </div>
 
   <!-- Navbar -->
   <header>
@@ -543,7 +606,7 @@
       
       <!-- Profile Picture -->
       <div class="profile-img-container">
-        <img src="profile.jpeg" alt="Anoir Zouit" class="profile-img">
+        <img src="profile.jpg" alt="Anoir Zouit" class="profile-img">
       </div>
 
       <div class="hero-badge">
